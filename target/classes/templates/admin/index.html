@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<style type="text/css">
+    /*
+        找到html标签、body标签，和挂载的标签
+        都给他们统一设置样式
+    */
+    html,body,#app,.el-container{
+        /*设置内部填充为0，几个布局元素之间没有间距*/
+        padding: 0px;
+        /*外部间距也是如此设置*/
+        margin: 0px;
+        /*统一设置高度为100%*/
+        height: 100%;
+    }
+    .el-header{
+        background-color: #409EFF;
+        height: 40px!important;
+        text-align: center;
+        padding-top: 5px;
+    }
+    .el-header span{
+        font-size: 16px;
+        color: #f5f7fa;
+    }
+</style>
+<body>
+    <div id="app">
+        <el-container>
+            <el-header><span>管理后台</span></el-header>
+            <el-container style=" border: 1px solid #eee">
+                <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+                    <el-menu  class="el-menu-vertical-demo">
+                        <el-menu-item index="/admin/user">
+                            <router-link tag="div" to="/admin/user">
+                                <div>
+                                    <i class="el-icon-menu"></i>员工
+                                </div>
+                            </router-link>
+                        </el-menu-item>
+                        <el-menu-item index="/admin/award">
+                            <router-link tag="span" to="/admin/award">
+                                <div>
+                                    <i class="el-icon-setting"></i>分组设置
+                                </div>
+                            </router-link>
+                        </el-menu-item>
+                    </el-menu>
+                </el-aside>
+                <el-container>
+                    <el-main>
+                        <router-view></router-view>
+                    </el-main>
+                </el-container>
+            </el-container>
+        </el-container>
+
+    </div>
+
+</body>
+<script src="js/vue.js"></script>
+<script src="js/vue-router.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/index.js"></script>
+<script src="components/teamSetting.js"></script>
+<script src="components/user.js"></script>
+<script src="components/router.js"></script>
+
+
+<script>
+    var app = new Vue({
+        el:'#app',
+        router
+    })
+
+</script>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+    <style>
+        .row{
+            padding-top: 30px;
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+        }
+        .btn-start {
+            background: linear-gradient( rgb(97,196,25) 0%,rgb(149,226,90) 100%);
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 1px solid #c4c4c4;
+            box-shadow: 0px 6px 0 0 rgba(88, 163, 31, 1),
+            0px 5px 12px 0px rgba(0, 0, 0, 0.6),
+            inset 0px 0px 10px -5px rgba(0, 0, 0, 1);
+            color: white;
+            font-family: Arial Black, Gadget, sans-serif;
+            font-size: 35px;
+            text-transform: uppercase;
+            transition: all .1s linear;
+            user-select: none;
+            cursor: pointer;
+            width: 350px;
+        }
+        .btn-start:active {
+            transform: translateY( 4px );
+            box-shadow: 0px 2px 0px 0px rgba(88, 163, 31, 1),
+            0px 5px 5px 0px rgba(0, 0, 0, 0.6),
+            inset 0px 0px 10px -5px rgba(0, 0, 0, 1);
+        }
+        .btn-start>span{
+            display: block;
+            transform: skew( 20deg, 0 );
+        }
+        .div-audio{
+            padding-bottom: 10px ;
+        }
+        ul li{
+            list-style-type:none;
+        }
+        .div_tabledata{
+            padding-left: 10%; padding-top: 10px; padding-top: 120px; font-size: 45px; color:white;text-shadow: 0 0 13px rgba(0,0,0,.8)
+        }
+        body{
+            width: 100%;height: 100%;
+            background:url('../img/bj1.png');
+            overflow: hidden;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body   style="">
+<div id="ppp">
+    <div class='row'>
+        <button class='btn-start' @click="refresh">
+            <span>CIWEI START</span>
+        </button>
+    </div>
+    <div class="div_tabledata">
+            <div v-for="(item, i) in list" class="team-body">
+                <ul>
+                    <li><span>{{item.city}}</span></li>
+                    <li v-for="(team,index) in item.teamUserList">
+                        <span>第{{index+1}}组：</span>
+                        <span v-for="user in team" style=" margin-right: 20px;">{{user}}</span>
+                    </li>
+                </ul>
+            </div>
+            <!--<tr v-for="(item, i) in list">-->
+                <!--<td>{{item.city}}</td>-->
+                    <!--<tr v-for="(team,index) in item.teamUserList" :key="index">-->
+                        <!--第+{{index}}+组：-->
+                        <!--<td>-->
+                            <!--<span v-for="user in team">-->
+                                <!--{{user}}-->
+                            <!--</span>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+            <!--</tr>-->
+    </div>
+</div>
+</body>
+<script src="js/vue.js"></script>
+<script src="js/vue-router.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/index.js"></script>
+<script>
+    var ppp = new Vue({
+        el:'#ppp',
+        data:{
+            list:[]
+        },
+        mounted(){
+            axios.get('/start').then(res=>{
+                console.log(res.data);
+                this.list = res.data;
+            })
+        },
+        methods:{
+            refresh(){
+                axios.get('/start').then(res=>{
+                    console.log(res.data);
+                    this.list = res.data;
+                })
+            }
+        }
+    })
+</script>
