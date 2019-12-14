@@ -15,6 +15,8 @@ const userCpn = Vue.component('userCpn',{
                                    <el-select v-model="scope.row.city" placeholder="请选择">
                                     <el-option label="深圳" value="深圳"></el-option>
                                     <el-option label="上海" value="上海"></el-option>
+                                    <el-option label="北京" value="北京"></el-option>
+                                    <el-option label="成都" value="成都"></el-option>
                                   </el-select>
                                 </template>
                             </el-table-column>
@@ -51,6 +53,8 @@ const userCpn = Vue.component('userCpn',{
                               <el-select v-model="newcity" value="深圳">
                                 <el-option label="深圳" value="深圳"></el-option>
                                 <el-option label="上海" value="上海"></el-option>
+                                <el-option label="北京" value="北京"></el-option>
+                                <el-option label="成都" value="成都"></el-option>
                               </el-select>
                         </el-form-item>
                       </el-form>

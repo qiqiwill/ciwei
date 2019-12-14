@@ -11,9 +11,9 @@ const teamSettingCpn = Vue.component('teamSettingCpn',{
                                   <el-input size="small" v-model="scope.row.teamNum" type="number"></el-input>
                                 </template>
                             </el-table-column>
-                            <el-table-column  label="每组人数" width="150">
+                            <el-table-column  label="每组人数(例子如果有2组，第1组人数为2，第2组人数为3，设置每组数量为 2,3)" width="250">
                                 <template slot-scope="scope">
-                                  <el-input size="small" v-model="scope.row.teamPersonNum"></el-input>
+                                  <el-input size="small" v-model="scope.row.teamPersonNum" placeholder="3,4,5"></el-input>
                                 </template>
                             </el-table-column>
                             <el-table-column label="地址" width="150">

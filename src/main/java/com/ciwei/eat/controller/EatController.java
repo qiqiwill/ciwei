@@ -22,14 +22,31 @@ public class EatController {
 
     @ResponseBody
     @RequestMapping(path = "/start", method = RequestMethod.GET)
-    public List<CityTeamRs> eee(Model model){
+    public List<CityTeamRs> start(){
         return ciweiEatTeamService.selectCityTeam();
     }
 
-    @RequestMapping(path = "/index", method = RequestMethod.GET)
-    public String getTeam(){
-        return "cityTeam";
+    @ResponseBody
+    @RequestMapping(path = "/init", method = RequestMethod.GET)
+    public List<CityTeamRs> init(){
+        List<CityTeamRs> rs = CiweiEatTeamService.getCacheRs();
+        if(rs.isEmpty()){
+            return ciweiEatTeamService.selectCityTeam();
+        }else {
+            return rs;
+        }
     }
 
+
+    @RequestMapping(path = "/indexhr", method = RequestMethod.GET)
+    public String index(Model mode){
+        mode.addAttribute("isShow", true);
+        return "cityTeam";
+    }
+    @RequestMapping(path = {"/index", "/"}, method = RequestMethod.GET)
+    public String init(Model mode){
+        mode.addAttribute("isShow", false);
+        return "cityTeam";
+    }
 
 }

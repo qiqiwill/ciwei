@@ -10,9 +10,12 @@ public class TeamProperties {
 
     private int teamNum;
 
-    private int teamPersonNum;
+    private String teamPersonNum;
 
     private String city;
+
+    public TeamProperties() {
+    }
 
     public int getTeamNum() {
         return teamNum;
@@ -22,11 +25,11 @@ public class TeamProperties {
         this.teamNum = teamNum;
     }
 
-    public int getTeamPersonNum() {
+    public String getTeamPersonNum() {
         return teamPersonNum;
     }
 
-    public void setTeamPersonNum(int teamPersonNum) {
+    public void setTeamPersonNum(String teamPersonNum) {
         this.teamPersonNum = teamPersonNum;
     }
 

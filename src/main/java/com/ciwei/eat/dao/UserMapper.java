@@ -12,19 +12,19 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    @Select("select id, name, city from eat order by CONVERT(name USING gbk)")
+    @Select("select id, name, city from ciwei_user order by CONVERT(name USING gbk)")
     List<User> selectUser();
 
-    @Insert("insert into eat(name,city) values(#{name},#{city})")
+    @Insert("insert into ciwei_user(name,city) values(#{name},#{city})")
     void insert(User user);
 
-    @Update("update eat set name = #{name}, city = #{city} where id = #{id}")
+    @Update("update ciwei_user set name = #{name}, city = #{city} where id = #{id}")
     void saveUser(User user);
 
-    @Delete("delete from eat where id = #{id}")
+    @Delete("delete from ciwei_user where id = #{id}")
     void deleteUser(int id);
 
-    @Select("select name from eat")
+    @Select("select name from ciwei_user")
     List<String> selectBy();
 
 }

@@ -24,6 +24,16 @@ public class CiweiEatTeamService {
     @Autowired
     private UserMapper userMapper;
 
+    private static List<CityTeamRs> cacheRs = new ArrayList<>();
+
+    public static List<CityTeamRs> getCacheRs() {
+        return cacheRs;
+    }
+
+    public static void setCacheRs(List<CityTeamRs> cacheRs) {
+        CiweiEatTeamService.cacheRs = cacheRs;
+    }
+
     public List<CityTeamRs> selectCityTeam(){
         List<CityTeamRs> rs = new ArrayList<>();
 
@@ -41,37 +51,30 @@ public class CiweiEatTeamService {
                 TeamProperties properties = teamPropertiesList.get(0);
                 //根据 每组多少人，多少个组 查出多少个人
                 int teamNum = properties.getTeamNum();
-                int teamPersonNum = properties.getTeamPersonNum();
+                String teamPersonNum = properties.getTeamPersonNum();
+                String[] teamPersonNums = teamPersonNum.split(",");
                 List<List<String>> teamUserRs = new ArrayList<>();
                 for (int i=0; i< teamNum; i++){
-                    if((i+1)*teamPersonNum > v.size()){
+                    int personNum =  getxxNum(teamPersonNums, i+1);
+                    //先判断 这个组是否还有人数够分
+                    if(personNum > v.size()){
                         break;
                     }else{
-                        teamUserRs.add(v.subList(i*teamPersonNum ,(i+1)*teamPersonNum));
+                        teamUserRs.add(v.subList(getxxNum(teamPersonNums, i) ,personNum));
                     }
                 }
                 cityTeamRs.setTeamUserList(teamUserRs);
                 rs.add(cityTeamRs);
             }
         });
+        cacheRs = rs;
         return rs;
     }
 
-    public List<List<String>> select(){
-        //查出所有用户名称
-        List<String> ciweiUserNameList = userMapper.selectBy();
-
-        Collections.shuffle(ciweiUserNameList);
-
-        TeamProperties properties = teamMapper.selectProperties();
-        //根据 每组多少人，多少个组 查出多少个人
-        int teamNum = properties.getTeamNum();
-        int teamPersonNum = properties.getTeamPersonNum();
-
-        List<List<String>> rs = new ArrayList<>();
-
-        for (int i=0; i< teamNum; i++){
-            rs.add(ciweiUserNameList.subList(i*teamPersonNum ,(i+1)*teamPersonNum));
+    private int getxxNum(String[] teamPersonNums, int index){
+        int rs = 0;
+        for (int i= 0; i< index; i++){
+            rs = rs + Integer.parseInt(teamPersonNums[i]);
         }
         return rs;
     }
@@ -100,6 +103,20 @@ public class CiweiEatTeamService {
 
     //保存每组配置
     public void saveTeamProperties(TeamProperties teamProperties) throws Exception {
+        if(teamProperties.getTeamNum() < 1){
+            throw new Exception("组数量不能小于1");
+        }
+        if(teamProperties.getTeamPersonNum().split(",").length != teamProperties.getTeamNum()){
+            throw new Exception("每组数量设置有误，与分组数量不一致，正确设置为 比如分组数量为2，每组数量设置为：2,3");
+        }
+        String[] personNum = teamProperties.getTeamPersonNum().split(",");
+        for (String s: personNum){
+            try {
+                Integer.parseInt(s);
+            }catch (Exception e){
+                throw new Exception("每组数量设置需为整数 比如：2,3");
+            }
+        }
         if(teamMapper.selectByCity(teamProperties.getCity(), teamProperties.getId()) > 0){
             throw new Exception("城市不能重复");
         }
