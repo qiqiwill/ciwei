@@ -20,7 +20,14 @@ public class AdminController{
     @Autowired
     private CiweiEatTeamService ciweiEatTeamService;
 
-    @RequestMapping(path = "/admin", method = RequestMethod.GET)
+
+    @RequestMapping(path = "/login", method = RequestMethod.GET)
+    public String login(){
+        return "admin/login";
+    }
+
+
+    @RequestMapping(path = "/adminhr", method = RequestMethod.GET)
     public String admin(){
         return "admin/index";
     }

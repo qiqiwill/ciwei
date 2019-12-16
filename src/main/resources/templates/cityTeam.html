@@ -69,20 +69,23 @@
         }
         body{
             width: 100%; height: 100%;
-            background:url('../img/bj5.png');
+            background:url('../img/zbj.png');
             background-size: cover;
+        }
+        [v-cloak]{
+            display: none;
         }
     </style>
 </head>
 <body>
     <div id="ppp">
-        <div class='row'>
+        <div class='row' v-cloak>
             <button class='btn-start' @click="refresh" v-show="isShow">
                 <span>CIWEI START</span>
             </button>
             <!--<p style="margin-top: -100px;"><span style="color:white; font-size:250%;font-weight: 600;">遇见另一种生活</span></p>-->
         </div>
-        <div class="div_tabledata">
+        <div class="div_tabledata" v-cloak>
                 <div v-for="(item, i) in list" class="team-body">
                     <ul>
                         <li><span>{{item.city}}</span></li>

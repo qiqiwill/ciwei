@@ -117,7 +117,7 @@ const userCpn = Vue.component('userCpn',{
         },
         //新增用户
         addUser(){
-            let currentPage = _this.currentPage;
+            let currentPage = this.currentPage;
             this.dialogFormVisible = false
             let data = {"name":this.newname, "city":this.newcity};
             axios.post('/admin/user', data).then(res=>{
